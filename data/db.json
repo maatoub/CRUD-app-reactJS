@@ -1,0 +1,19 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "nasser",
+      "checked": true
+    },
+    {
+      "id": 2,
+      "name": "ahmed",
+      "checked": true
+    },
+    {
+      "id": 3,
+      "name": "mohammed",
+      "checked": false
+    }
+  ]
+}

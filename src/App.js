@@ -3,6 +3,7 @@ import "./App.css";
 import Home from "./pages/Home";
 import Users from "./pages/Users";
 import NewUsers from "./pages/NewUsers";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/users" element={<Users />}></Route>
-          <Route path="/new-users" element={<NewUsers />}></Route>
+          <Route path="/new-user" element={<NewUsers />}></Route>
         </Routes>
       </BrowserRouter>
     </>

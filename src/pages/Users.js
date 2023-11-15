@@ -8,30 +8,41 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { CheckUser, DeleteUser, GetAllUsers } from "../metier/api";
 const Users = () => {
-  const [users, setUsers] = useState([]);
+  const [userState, setUserState] = useState({
+    users: [],
+    sizePage: 4,
+    pageCurrent: 1,
+    keyword: "",
+  });
   useEffect(() => {
-    GetAllUsers()
-      .then((response) => {
-        setUsers(response.data);
+    GetAllUsers(userState.keyword, userState.pageCurrent, userState.sizePage)
+      .then((res) => {
+        setUserState({
+          ...userState,
+          users: res.data,
+          sizePage: userState.sizePage,
+          keyword: userState.keyword,
+          pageCurrent: userState.pageCurrent,
+        });
       })
       .catch((err) => console.log(err));
   }, []);
 
   const handleDeleteUser = (user) => {
     DeleteUser(user).then(() => {
-      const newUsers = users.filter((u) => u.id !== user.id);
-      setUsers(newUsers);
+      const newUsers = userState.users.filter((u) => u.id !== user.id);
+      setUserState({ ...userState, users: newUsers });
     });
   };
   const handleCheckUser = (user) => {
-    CheckUser(user).then((resp) => {
-      const newUsers = users.map((e) => {
+    CheckUser(user).then(() => {
+      const newUsers = userState.users.map((e) => {
         if (e.id === user.id) {
           e.checked = !user.checked;
         }
         return e;
       });
-      setUsers(newUsers);
+      setUserState({ ...userState, users: newUsers });
     });
   };
   return (
@@ -51,7 +62,7 @@ const Users = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {users.map((user, index) => (
+                  {userState.users.map((user, index) => (
                     <tr key={index} className="">
                       <td>{user.id}</td>
                       <td>{user.name}</td>

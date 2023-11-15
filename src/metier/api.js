@@ -4,8 +4,10 @@ export const UsersApi = axios.create({
   baseURL: "http://localhost:2000",
 });
 
-export const GetAllUsers = () => {
-  return UsersApi.get("/users");
+export const GetAllUsers = (keyword = "", page = 1, size = 4) => {
+  return UsersApi.get(
+    `/users?name_like=${keyword}&_page=${page}&_limit=${size}`
+  );
 };
 
 export const GetUser = (id) => {
